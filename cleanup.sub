@@ -1,0 +1,17 @@
+universe                = vanilla
+executable              = cleanup.sh
+
+accounting_group = ligo.dev.o4.detchar.bayeswave.gengli
+accounting_group_user = ashishthomas.mathew
+
+log                     = logs/cleanup.log
+output                  = logs/cleanup.out
+error                   = logs/cleanup.err
+
+should_transfer_files   = NO
+
+request_cpus            = 1
+request_memory          = 1G
+request_disk            = 1G
+
+queue 1

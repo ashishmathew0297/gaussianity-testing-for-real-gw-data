@@ -1,0 +1,17 @@
+universe                = vanilla
+# environment = "BEARER_TOKEN_FILE=$$(CondorScratchDir)/.condor_creds/scitokens.use"
+executable              = run_job.sh
+arguments               = fetch_timeseries.py --datatype $(Datatype) --chunk_index $(ChunkIndex) --start_index $(ChunkStart) --end_index $(ChunkEnd) $(WhiteningTimewindow)
+
+accounting_group = ligo.dev.o4.detchar.bayeswave.gengli
+accounting_group_user = ashishthomas.mathew
+
+log                     = logs/fetch_$(Datatype)_timeseries_$(ChunkStart)_$(ChunkEnd).log
+output                  = logs/fetch_$(Datatype)_timeseries_$(ChunkStart)_$(ChunkEnd).out
+error                   = logs/fetch_$(Datatype)_timeseries_$(ChunkStart)_$(ChunkEnd).err
+
+request_cpus            = 1
+request_memory          = 512M
+request_disk            = 32G
+
+queue ChunkIndex,ChunkStart,ChunkEnd from ./temp/splits_$(Datatype).txt

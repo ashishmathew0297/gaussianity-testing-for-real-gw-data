@@ -1,0 +1,29 @@
+#                  ___ Fetch_Timeseries (Clean) ___      __ Generate_Stats_Full (Clean/Glitch) ___
+#                 |                                |    |                                         |
+#                 |                                |    |                                         |
+# Split_Data ____ |                                |____|__ Generate_Stats_Low (Clean/Glitch) ____|_____ Create_Plots ___ Cleanup
+#                 |                                |    |                                         |
+#                 |                                |    |                                         |
+#                 |___ Fetch_Timeseries (Glitch) __|    |__ Generate_Stats_High (Clean/Glitch) ___|
+
+JOB Split_Data split_data.sub
+JOB Fetch_Clean_TimeSeries fetch_timeseries.sub
+JOB Fetch_Glitch_TimeSeries fetch_timeseries.sub
+JOB Generate_Clean_Stats generate_statistics.sub
+JOB Generate_Glitch_Stats generate_statistics.sub
+JOB Create_Plots create_plots.sub
+JOB Cleanup cleanup.sub
+
+VARS Split_Data numChunks="50"
+VARS Fetch_Clean_TimeSeries Datatype="clean" WhiteningTimewindow=""
+VARS Fetch_Glitch_TimeSeries Datatype="glitch" WhiteningTimewindow="--whitening_tw 10"
+VARS Generate_Clean_Stats Datatype="clean" WhiteningTimewindow="10" ObservationTimewindow="1" Scaler="none" OutputFolder="./outputs_latest"
+VARS Generate_Glitch_Stats Datatype="glitch" WhiteningTimewindow="10" ObservationTimewindow="1" Scaler="none" OutputFolder="./outputs_latest"
+VARS Create_Plots Band="full" ObservationTimewindow="1" Scaler="none" OutputFolder="./outputs_latest"
+
+PARENT Split_Data CHILD Fetch_Clean_TimeSeries
+PARENT Split_Data CHILD Fetch_Glitch_TimeSeries
+PARENT Fetch_Clean_TimeSeries CHILD Generate_Clean_Stats Generate_Glitch_Stats
+PARENT Fetch_Glitch_TimeSeries CHILD Generate_Clean_Stats Generate_Glitch_Stats
+PARENT Generate_Clean_Stats Generate_Glitch_Stats CHILD Create_Plots
+PARENT Create_Plots CHILD Cleanup

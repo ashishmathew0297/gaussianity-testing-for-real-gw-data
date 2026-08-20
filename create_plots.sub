@@ -1,0 +1,16 @@
+universe                = vanilla
+executable              = run_job.sh
+arguments               = create_plots.py --clean_output_file $(OutputFolder)/clean_$(ObservationTimewindow)s_$(Scaler)_statistical_results_$(Band).csv --glitch_output_file $(OutputFolder)/glitch_$(ObservationTimewindow)s_$(Scaler)_statistical_results_$(Band).csv --latex_output_file $(OutputFolder)/test_conf_matrix_$(Scaler)_$(Band)_$(ObservationTimewindow)s.tex --csv_output_file $(OutputFolder)/test_conf_matrix_$(Scaler)_$(Band)_$(ObservationTimewindow)s.csv --output_folder $(OutputFolder) --image_postfix $(ObservationTimewindow)s_$(Scaler)_$(Band)
+
+accounting_group = ligo.dev.o4.detchar.bayeswave.gengli
+accounting_group_user = ashishthomas.mathew
+
+log                     = logs/create_plots_$(Scaler)_$(Band).log
+output                  = logs/create_plots_$(Scaler)_$(Band).out
+error                   = logs/create_plots_$(Scaler)_$(Band).err
+
+request_cpus            = 1
+request_memory          = 8G
+request_disk            = 4G
+
+queue Band in (full low high)

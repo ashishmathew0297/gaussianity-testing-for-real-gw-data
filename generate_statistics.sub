@@ -1,0 +1,17 @@
+universe                = vanilla
+executable              = run_job.sh
+arguments               = generate_statistics.py --datatype $(Datatype) --band $(Band) --whitening_tw $(WhiteningTimewindow) --observation_tw $(ObservationTimewindow) --scaler_type $(Scaler) --output_folder $(OutputFolder)
+
+accounting_group = ligo.dev.o4.detchar.bayeswave.gengli
+accounting_group_user = ashishthomas.mathew
+
+log                     = logs/generate_$(Datatype)_statistics_$(Band).log
+output                  = logs/generate_$(Datatype)_statistics_$(Band).out
+error                   = logs/generate_$(Datatype)_statistics_$(Band).err
+
+request_cpus            = 1
+request_memory          = 32G
+request_disk            = 48G
+
+# queue Scaler in (standard minmax robust)
+queue Band in (full low high)

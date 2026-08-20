@@ -1,0 +1,16 @@
+universe                = vanilla
+executable              = run_job.sh
+arguments               = split_data.py --num_chunks $(numChunks)
+
+accounting_group = ligo.dev.o4.detchar.bayeswave.gengli
+accounting_group_user = ashishthomas.mathew
+
+log                     = logs/split_data.log
+output                  = logs/split_data.out
+error                   = logs/split_data.err
+
+request_cpus            = 1
+request_memory          = 8G
+request_disk            = 128M
+
+queue 1
