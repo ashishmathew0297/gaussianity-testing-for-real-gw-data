@@ -1,0 +1,11 @@
+# Rescue DAG file, created after running
+#   the workflow.dag DAG file
+# Created 8/21/2026 00:09:39 UTC
+# Rescue DAG version: 2.1.0
+#
+# Total number of Nodes: 7
+# Nodes premarked DONE: 1
+# Nodes that failed: 2
+#   Fetch_Clean_TimeSeries,Fetch_Glitch_TimeSeries,<ENDLIST>
+
+DONE Split_Data
