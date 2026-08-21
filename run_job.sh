@@ -4,7 +4,8 @@ set -e
 source /cvmfs/software.igwn.org/conda/etc/profile.d/conda.sh
 conda activate gengli_env
 
-cd /home/ashishthomas.mathew/gaussianity_testing_glitch_detection
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)"
+cd "$SCRIPT_DIR"
 
 python_file=$1 
 # Removes args and resets to $1
